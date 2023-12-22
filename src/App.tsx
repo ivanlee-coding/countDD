@@ -64,7 +64,7 @@ function App() {
           {`${timer.sec}`}
         </motion.div>
 
-        <div className="col-auto d-flex justify-content-end fs-5 fw-bold text-light">
+        <div className="col-auto d-flex justify-content-end fs-5 fw-bold text-danger">
           {`${timer.milliseconds}`}
         </div>
 
