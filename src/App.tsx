@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import dateFormat from 'dateformat'
+// import dateFormat from 'dateformat'
 import { motion } from "framer-motion"
 
 function App() {
@@ -44,21 +44,29 @@ function App() {
 
       <div className="row align-items-center vw-100">
 
-        <div className="col-6 d-flex justify-content-end fs-1 fw-bold text-light p-0">
-          {`${timer.day}`}
+        <div className="col-5 d-flex justify-content-end fs-1 fw-bold text-light">
+          {`${timer.day}天`}
         </div>
-        {/* 
+
+        <div className="col-auto d-flex justify-content-end fs-1 fw-bold text-light">
+          {`${timer.hour}時`}
+        </div>
+
+        <div className="col-auto d-flex justify-content-end fs-1 fw-bold text-light">
+          {`${timer.min}分`}
+        </div>
+
         <motion.div className="col-auto d-inline fs-1 fw-bold text-warning p-0"
           initial={{ opacity: 0, scale: 4.5 }}
-          animate={{ opacity: 1, scale: 1 }}
+          animate={{ opacity: 1, scale: 0.8 }}
           transition={{ duration: 10.0 }}
         >         
-          {`${timer}`}
-        </motion.div> */}
+          {`${timer.sec}`}
+        </motion.div>
 
-        {/* <div className="col d-flex align-items-end fs-4 text-light">
-          {`${timer.toString().slice(-3)}`}
-        </div> */}
+        <div className="col-auto d-flex justify-content-end fs-3 fw-bold text-light">
+          {`${timer.milliseconds}`}
+        </div>
 
       </div>
 
@@ -68,7 +76,7 @@ function App() {
   )
 }
 
-function convertDiffToHumanDate(count) {
+function convertDiffToHumanDate(count: number) {
 
   //const count = 1703152913000;
 
@@ -79,21 +87,21 @@ function convertDiffToHumanDate(count) {
   const minUnit = 60 * 1000;
   const secUnit = 1000;
 
-  const day = Math.floor(count / dayUnit);
-  let hour = Math.floor(count%dayUnit / hourUnit);
-  let min = Math.floor(count%dayUnit%hourUnit / minUnit);
-  let sec = Math.floor(count%dayUnit%hourUnit%minUnit / secUnit);
+  const day = Math.floor(count / dayUnit).toString();
+  let hour = Math.floor(count%dayUnit / hourUnit).toString();
+  let min = Math.floor(count%dayUnit%hourUnit / minUnit).toString();
+  let sec = Math.floor(count%dayUnit%hourUnit%minUnit / secUnit).toString();
   const milliseconds = count.toString().slice(-3);
 
-  if(hour < 10) hour = `0${hour}`
-  if(min < 10) min = `0${min}`
-  if(sec < 10) sec = `0${sec}`
+  if(hour.length == 1) hour = `0${hour}`
+  if(min.length == 1) min = `0${min}`
+  if(sec.length == 1) sec = `0${sec}`
 
-  r.day = day.toString();
-  r.hour = hour.toString();
-  r.min = min.toString();
-  r.sec = sec.toString();
-  r.milliseconds = milliseconds.toString();
+  r.day = day;
+  r.hour = hour;
+  r.min = min;
+  r.sec = sec;
+  r.milliseconds = milliseconds;
 
   return r;
 }
